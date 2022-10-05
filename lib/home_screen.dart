@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'quotes_screen.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -47,6 +47,11 @@ class HomeScreen extends StatelessWidget {
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
+                      onTap: () { Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => QuotesScreen(
+                                    id: snapshot.data[index]["char_id"],
+                                    name: snapshot.data[index]["name"])));
+                      },
                       child: Container(
                         padding: EdgeInsets.all(30),
                         decoration: BoxDecoration(
@@ -56,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         child: Align(
-                          alignment: Alignment.bottomLeft,
+                          alignment: Alignment.bottomLeft, // align author names
                           child: Text(
                             '${snapshot.data[index]["name"]}',
                             style: TextStyle(color: Colors.white, fontSize: 28),
